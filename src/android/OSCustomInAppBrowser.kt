@@ -46,7 +46,8 @@ class OSCustomInAppBrowser : CordovaPlugin() {
                     return true
                 }
 
-                val url = args.getString(0)
+                val url =
+                    args.getString(0)
 
                 cordova.activity.runOnUiThread {
 
@@ -61,7 +62,9 @@ class OSCustomInAppBrowser : CordovaPlugin() {
                         url
                     )
 
-                    cordova.activity.startActivity(intent)
+                    cordova.activity.startActivity(
+                        intent
+                    )
                 }
 
                 callbackContext.success()
@@ -85,19 +88,24 @@ class OSCustomInAppBrowser : CordovaPlugin() {
         private lateinit var webView: WebView
 
         private lateinit var reloadButton: Button
+
         private lateinit var closeButton: Button
 
         override fun onCreate(
             savedInstanceState: Bundle?
         ) {
 
-            super.onCreate(savedInstanceState)
+            super.onCreate(
+                savedInstanceState
+            )
 
-            // Hide Android action bar.
+            // Remove Android action bar.
             actionBar?.hide()
 
             val url =
-                intent.getStringExtra("url") ?: ""
+                intent.getStringExtra(
+                    "url"
+                ) ?: ""
 
             /*
              * Root container
@@ -111,7 +119,9 @@ class OSCustomInAppBrowser : CordovaPlugin() {
             /*
              * Respect Android system bars.
              */
-            ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            ViewCompat.setOnApplyWindowInsetsListener(
+                root
+            ) { view, insets ->
 
                 val systemBars =
                     insets.getInsets(
@@ -148,7 +158,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
             )
 
             /*
-             * Reload
+             * Reload button
              */
             reloadButton =
                 createButton("↻")
@@ -166,8 +176,8 @@ class OSCustomInAppBrowser : CordovaPlugin() {
             /*
              * Spacer
              *
-             * Pushes Close to the
-             * right side.
+             * Pushes Close button
+             * to the right.
              */
             val spacer =
                 View(this)
@@ -182,7 +192,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
             )
 
             /*
-             * Close
+             * Close button
              */
             closeButton =
                 createButton("✕")
@@ -197,6 +207,9 @@ class OSCustomInAppBrowser : CordovaPlugin() {
                 closeButton
             )
 
+            /*
+             * Add toolbar
+             */
             root.addView(
                 toolbar,
                 LinearLayout.LayoutParams(
@@ -232,18 +245,27 @@ class OSCustomInAppBrowser : CordovaPlugin() {
                 )
             )
 
-            setContentView(root)
+            /*
+             * Set content
+             */
+            setContentView(
+                root
+            )
 
             /*
-             * Apply status bar/navigation bar
-             * insets.
+             * Apply status bar and
+             * navigation bar insets.
              */
-            ViewCompat.requestApplyInsets(root)
+            ViewCompat.requestApplyInsets(
+                root
+            )
 
             /*
-             * Load contract URL.
+             * Load contract.
              */
-            webView.loadUrl(url)
+            webView.loadUrl(
+                url
+            )
         }
 
         private fun createButton(
@@ -266,11 +288,25 @@ class OSCustomInAppBrowser : CordovaPlugin() {
                 Color.BLACK
             )
 
+            /*
+             * Remove default Android
+             * button background.
+             */
+            button.background =
+                null
+
             button.minWidth =
-                56
+                48
 
             button.minHeight =
                 48
+
+            button.setPadding(
+                8,
+                0,
+                8,
+                0
+            )
 
             button.gravity =
                 Gravity.CENTER
@@ -278,13 +314,12 @@ class OSCustomInAppBrowser : CordovaPlugin() {
             return button
         }
 
+        /*
+         * Android system Back button
+         * closes the contract viewer.
+         */
         override fun onBackPressed() {
 
-            /*
-             * Since this is a contract viewer,
-             * Android Back closes the viewer
-             * instead of navigating the website.
-             */
             finish()
         }
 

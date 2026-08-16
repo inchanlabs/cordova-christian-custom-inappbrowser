@@ -14,7 +14,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
     override fun pluginInitialize() {
         super.pluginInitialize()
 
-        Log.d(TAG, "Custom InAppBrowser plugin initialized")
+        Log.d(TAG, "Plugin initialized")
     }
 
     override fun execute(
@@ -22,6 +22,8 @@ class OSCustomInAppBrowser : CordovaPlugin() {
         args: JSONArray,
         callbackContext: CallbackContext
     ): Boolean {
+
+        Log.d(TAG, "Received action: $action")
 
         when (action) {
 
@@ -34,16 +36,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
             "open" -> {
 
-                if (args.length() == 0) {
-                    callbackContext.error("URL is required")
-                    return true
-                }
-
-                val url = args.getString(0)
-
-                Log.d(TAG, "Opening URL: $url")
-
-                callbackContext.success()
+                callbackContext.success("OPEN_RECEIVED")
 
                 return true
             }

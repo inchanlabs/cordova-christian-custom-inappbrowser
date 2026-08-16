@@ -25,10 +25,43 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
         Log.d(TAG, "Received action: $action")
 
-        callbackContext.success(
-            "ACTION_RECEIVED:$action"
-        )
+        when (action) {
 
-        return true
+            "isAvailable" -> {
+
+                callbackContext.success(1)
+
+                return true
+            }
+
+            "open" -> {
+
+                val url = if (args.length() > 0) {
+                    args.getString(0)
+                } else {
+                    ""
+                }
+
+                Log.d(
+                    TAG,
+                    "Open requested: $url"
+                )
+
+                callbackContext.success(
+                    "OPEN_RECEIVED:$url"
+                )
+
+                return true
+            }
+
+            else -> {
+
+                callbackContext.error(
+                    "Unknown action: $action"
+                )
+
+                return false
+            }
+        }
     }
 }

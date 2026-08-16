@@ -84,8 +84,6 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
         private lateinit var webView: WebView
 
-        private lateinit var backButton: Button
-        private lateinit var forwardButton: Button
         private lateinit var reloadButton: Button
         private lateinit var closeButton: Button
 
@@ -95,12 +93,15 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
             super.onCreate(savedInstanceState)
 
-            // Remove Android action bar.
+            // Hide Android action bar.
             actionBar?.hide()
 
             val url =
                 intent.getStringExtra("url") ?: ""
 
+            /*
+             * Root container
+             */
             val root =
                 LinearLayout(this)
 
@@ -108,8 +109,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
                 LinearLayout.VERTICAL
 
             /*
-             * Respect the phone's status bar
-             * and navigation bar.
+             * Respect Android system bars.
              */
             ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
 
@@ -120,7 +120,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
                 view.setPadding(
                     0,
-                                       systemBars.top,
+                    systemBars.top,
                     0,
                     systemBars.bottom
                 )
@@ -129,7 +129,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
             }
 
             /*
-             * Navigation toolbar
+             * Toolbar
              */
             val toolbar =
                 LinearLayout(this)
@@ -148,35 +148,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
             )
 
             /*
-             * Back button
-             */
-            backButton =
-                createButton("←")
-
-            backButton.setOnClickListener {
-
-                if (webView.canGoBack()) {
-                    webView.goBack()
-                }
-
-            }
-
-            /*
-             * Forward button
-             */
-            forwardButton =
-                createButton("→")
-
-            forwardButton.setOnClickListener {
-
-                if (webView.canGoForward()) {
-                    webView.goForward()
-                }
-
-            }
-
-            /*
-             * Reload button
+             * Reload
              */
             reloadButton =
                 createButton("↻")
@@ -187,32 +159,15 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
             }
 
-            /*
-             * Close button
-             */
-            closeButton =
-                createButton("✕")
-
-            closeButton.setOnClickListener {
-
-                finish()
-
-            }
-
-            toolbar.addView(
-                backButton
-            )
-
-            toolbar.addView(
-                forwardButton
-            )
-
             toolbar.addView(
                 reloadButton
             )
 
             /*
-             * Push Close button to the right.
+             * Spacer
+             *
+             * Pushes Close to the
+             * right side.
              */
             val spacer =
                 View(this)
@@ -225,6 +180,18 @@ class OSCustomInAppBrowser : CordovaPlugin() {
                     1f
                 )
             )
+
+            /*
+             * Close
+             */
+            closeButton =
+                createButton("✕")
+
+            closeButton.setOnClickListener {
+
+                finish()
+
+            }
 
             toolbar.addView(
                 closeButton
@@ -267,11 +234,16 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
             setContentView(root)
 
+            /*
+             * Apply status bar/navigation bar
+             * insets.
+             */
             ViewCompat.requestApplyInsets(root)
 
+            /*
+             * Load contract URL.
+             */
             webView.loadUrl(url)
-
-            updateNavigationButtons()
         }
 
         private fun createButton(
@@ -306,35 +278,20 @@ class OSCustomInAppBrowser : CordovaPlugin() {
             return button
         }
 
-        private fun updateNavigationButtons() {
-
-            if (!::webView.isInitialized) {
-                return
-            }
-
-            backButton.isEnabled =
-                webView.canGoBack()
-
-            forwardButton.isEnabled =
-                webView.canGoForward()
-        }
-
         override fun onBackPressed() {
 
-            if (webView.canGoBack()) {
-
-                webView.goBack()
-
-            } else {
-
-                finish()
-
-            }
+            /*
+             * Since this is a contract viewer,
+             * Android Back closes the viewer
+             * instead of navigating the website.
+             */
+            finish()
         }
 
         override fun onDestroy() {
 
             webView.stopLoading()
+
             webView.destroy()
 
             super.onDestroy()

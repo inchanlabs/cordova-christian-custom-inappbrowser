@@ -1,10 +1,21 @@
 package com.outsystems.plugins.custominappbrowser
 
+import android.util.Log
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaPlugin
 import org.json.JSONArray
 
 class OSCustomInAppBrowser : CordovaPlugin() {
+
+    companion object {
+        private const val TAG = "OSCustomInAppBrowser"
+    }
+
+    override fun pluginInitialize() {
+        super.pluginInitialize()
+
+        Log.d(TAG, "Custom InAppBrowser plugin initialized")
+    }
 
     override fun execute(
         action: String,

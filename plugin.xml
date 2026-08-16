@@ -14,4 +14,12 @@
 
     <author>OutSystems Custom Plugin</author>
 
+    <js-module
+        name="OSCustomInAppBrowser"
+        src="www/plugin.js">
+
+        <clobbers target="cordova.plugins.OSCustomInAppBrowser" />
+
+    </js-module>
+
 </plugin>

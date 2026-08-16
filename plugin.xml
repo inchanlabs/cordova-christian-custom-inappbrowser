@@ -22,4 +22,28 @@
 
     </js-module>
 
+
+    <platform name="android">
+
+        <config-file
+            parent="/*"
+            target="res/xml/config.xml">
+
+            <feature name="OSCustomInAppBrowser">
+
+                <param
+                    name="android-package"
+                    value="com.outsystems.plugins.custominappbrowser.OSCustomInAppBrowser" />
+
+            </feature>
+
+        </config-file>
+
+
+        <source-file
+            src="src/android/OSCustomInAppBrowser.kt"
+            target-dir="app/src/main/kotlin/com/outsystems/plugins/custominappbrowser" />
+
+    </platform>
+
 </plugin>

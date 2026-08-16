@@ -83,6 +83,11 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
             super.onCreate(savedInstanceState)
 
+            androidx.core.view.WindowCompat.setDecorFitsSystemWindows(
+            window,
+            true
+            )
+
             // Hide the Android action bar.
             actionBar?.hide()
 

@@ -5,6 +5,7 @@
     version="1.0.0"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
+    <!-- JavaScript API -->
     <js-module
         name="plugin"
         src="www/plugin.js">
@@ -12,6 +13,11 @@
         <clobbers target="cordova.plugins.OSCustomInAppBrowser" />
 
     </js-module>
+
+
+    <!-- ========================= -->
+    <!-- Android                   -->
+    <!-- ========================= -->
 
     <platform name="android">
 
@@ -37,6 +43,8 @@
 
         </config-file>
 
+
+        <!-- Only INTERNET permission -->
         <config-file
             parent="/manifest"
             target="AndroidManifest.xml">
@@ -46,6 +54,8 @@
 
         </config-file>
 
+
+        <!-- Browser Activity -->
         <config-file
             parent="/manifest/application"
             target="AndroidManifest.xml">
@@ -56,9 +66,33 @@
 
         </config-file>
 
+
+        <!-- Kotlin source -->
         <source-file
             src="src/android/OSCustomInAppBrowser.kt"
             target-dir="app/src/main/kotlin/com/outsystems/plugins/custominappbrowser" />
+
+    </platform>
+
+
+    <!-- ========================= -->
+    <!-- iOS                       -->
+    <!-- ========================= -->
+
+    <platform name="ios">
+
+        <feature name="OSCustomInAppBrowser">
+
+            <param
+                name="ios-package"
+                value="OSCustomInAppBrowser" />
+
+        </feature>
+
+
+        <!-- Swift source -->
+        <source-file
+            src="src/ios/OSCustomInAppBrowser.swift" />
 
     </platform>
 

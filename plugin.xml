@@ -9,7 +9,7 @@
         name="plugin"
         src="www/plugin.js">
 
-        <clobbers target="CustomInAppBrowser" />
+        <clobbers target="cordova.plugins.OSCustomInAppBrowser" />
 
     </js-module>
 

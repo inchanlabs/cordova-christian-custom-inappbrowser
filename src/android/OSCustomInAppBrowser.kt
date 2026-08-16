@@ -23,17 +23,39 @@ class OSCustomInAppBrowser : CordovaPlugin() {
         callbackContext: CallbackContext
     ): Boolean {
 
-        if (action == "isAvailable") {
+        when (action) {
 
-            callbackContext.success(1)
+            "isAvailable" -> {
 
-            return true
+                callbackContext.success(1)
+
+                return true
+            }
+
+            "open" -> {
+
+                if (args.length() == 0) {
+                    callbackContext.error("URL is required")
+                    return true
+                }
+
+                val url = args.getString(0)
+
+                Log.d(TAG, "Opening URL: $url")
+
+                callbackContext.success()
+
+                return true
+            }
+
+            else -> {
+
+                callbackContext.error(
+                    "Unknown action: $action"
+                )
+
+                return false
+            }
         }
-
-        callbackContext.error(
-            "Unknown action: $action"
-        )
-
-        return false
     }
 }

@@ -1,14 +1,11 @@
 package com.outsystems.plugins.custominappbrowser
 
 import android.app.Activity
-import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Button
 import android.widget.LinearLayout
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaPlugin
@@ -86,6 +83,9 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
             super.onCreate(savedInstanceState)
 
+            // Hide the Android action bar
+            actionBar?.hide()
+
             val url =
                 intent.getStringExtra("url") ?: ""
 
@@ -94,30 +94,6 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
             root.orientation =
                 LinearLayout.VERTICAL
-
-            // Close button
-
-            val closeButton =
-                Button(this)
-
-            closeButton.text =
-                "Close"
-
-            closeButton.setOnClickListener {
-
-                finish()
-
-            }
-
-            root.addView(
-                closeButton,
-                LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-            )
-
-            // WebView
 
             webView =
                 WebView(this)
@@ -138,8 +114,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
                 webView,
                 LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    0,
-                    1f
+                    ViewGroup.LayoutParams.MATCH_PARENT
                 )
             )
 
@@ -163,6 +138,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
         override fun onDestroy() {
 
+            webView.stopLoading()
             webView.destroy()
 
             super.onDestroy()

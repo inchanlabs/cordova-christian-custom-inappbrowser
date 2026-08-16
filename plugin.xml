@@ -5,6 +5,14 @@
     version="1.0.0"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
+    <js-module
+        name="plugin"
+        src="www/plugin.js">
+
+        <clobbers target="CustomInAppBrowser" />
+
+    </js-module>
+
     <platform name="android">
 
         <config-file

@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Custom InAppBrowser Cordova plugin for OutSystems Developer Cloud",
   "cordova": {
-    "id": "cordova-christian-custom-inappbrowser",
+    "id": "com.outsystems.plugins.custominappbrowser",
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   },
   "keywords": [
@@ -14,6 +15,6 @@
     "outsystems",
     "inappbrowser"
   ],
-  "author": "Christian",
-  "license": "STI College"
+  "author": "Christian Labrada",
+  "license": "STI College."
 }

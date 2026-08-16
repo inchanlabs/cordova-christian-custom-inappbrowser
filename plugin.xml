@@ -37,6 +37,15 @@
 
         </config-file>
 
+        <config-file
+            parent="/manifest"
+            target="AndroidManifest.xml">
+
+            <uses-permission
+                android:name="android.permission.INTERNET" />
+
+        </config-file>
+
         <source-file
             src="src/android/OSCustomInAppBrowser.kt"
             target-dir="app/src/main/kotlin/com/outsystems/plugins/custominappbrowser" />

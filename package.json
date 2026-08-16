@@ -1,0 +1,19 @@
+{
+  "name": "cordova-christian-custom-inappbrowser",
+  "version": "1.0.0",
+  "description": "Custom InAppBrowser Cordova plugin for OutSystems Developer Cloud",
+  "cordova": {
+    "id": "com.outsystems.plugins.custominappbrowser",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "cordova-plugin",
+    "outsystems",
+    "inappbrowser"
+  ],
+  "author": "Christian",
+  "license": "MIT"
+}

@@ -1,49 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
+<platform name="android">
 
-<plugin
-    id="com.outsystems.plugins.custominappbrowser"
-    version="1.0.0"
-    xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    <config-file
+        parent="/*"
+        target="res/xml/config.xml">
 
-    <name>Custom InAppBrowser</name>
+        <feature name="OSCustomInAppBrowser">
 
-    <description>
-        Custom InAppBrowser plugin for OutSystems Developer Cloud
-    </description>
+            <param
+                name="android-package"
+                value="com.outsystems.plugins.custominappbrowser.OSCustomInAppBrowser" />
 
-    <author>OutSystems Custom Plugin</author>
+        </feature>
 
-    <js-module
-        name="OSCustomInAppBrowser"
-        src="www/plugin.js">
+        <preference
+            name="GradlePluginKotlinEnabled"
+            value="true" />
 
-        <clobbers target="cordova.plugins.OSCustomInAppBrowser" />
+        <preference
+            name="GradlePluginKotlinCodeStyle"
+            value="official" />
 
-    </js-module>
-
-
-    <platform name="android">
-
-        <config-file
-            parent="/*"
-            target="res/xml/config.xml">
-
-            <feature name="OSCustomInAppBrowser">
-
-                <param
-                    name="android-package"
-                    value="com.outsystems.plugins.custominappbrowser.OSCustomInAppBrowser" />
-
-            </feature>
-
-        </config-file>
+    </config-file>
 
 
-        <source-file
-            src="src/android/OSCustomInAppBrowser.kt"
-            target-dir="app/src/main/kotlin/com/outsystems/plugins/custominappbrowser" />
+    <source-file
+        src="src/android/OSCustomInAppBrowser.kt"
+        target-dir="app/src/main/kotlin/com/outsystems/plugins/custominappbrowser" />
 
-    </platform>
-
-</plugin>
+</platform>

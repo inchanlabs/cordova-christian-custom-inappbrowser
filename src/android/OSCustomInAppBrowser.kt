@@ -1,21 +1,20 @@
 package com.outsystems.plugins.custominappbrowser
 
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
 import android.widget.LinearLayout
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaPlugin
 import org.json.JSONArray
 
 class OSCustomInAppBrowser : CordovaPlugin() {
-
-    companion object {
-        private var browserActivity: BrowserActivity? = null
-    }
 
     override fun execute(
         action: String,
@@ -43,8 +42,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
                     return true
                 }
 
-                val url =
-                    args.getString(0)
+                val url = args.getString(0)
 
                 cordova.activity.runOnUiThread {
 
@@ -59,9 +57,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
                         url
                     )
 
-                    cordova.activity.startActivity(
-                        intent
-                    )
+                    cordova.activity.startActivity(intent)
                 }
 
                 callbackContext.success()
@@ -88,16 +84,40 @@ class OSCustomInAppBrowser : CordovaPlugin() {
             savedInstanceState: Bundle?
         ) {
 
-            super.onCreate(
-                savedInstanceState
-            )
-
-            browserActivity = this
+            super.onCreate(savedInstanceState)
 
             val url =
-                intent.getStringExtra(
-                    "url"
-                ) ?: ""
+                intent.getStringExtra("url") ?: ""
+
+            val root =
+                LinearLayout(this)
+
+            root.orientation =
+                LinearLayout.VERTICAL
+
+            // Close button
+
+            val closeButton =
+                Button(this)
+
+            closeButton.text =
+                "Close"
+
+            closeButton.setOnClickListener {
+
+                finish()
+
+            }
+
+            root.addView(
+                closeButton,
+                LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            )
+
+            // WebView
 
             webView =
                 WebView(this)
@@ -114,21 +134,16 @@ class OSCustomInAppBrowser : CordovaPlugin() {
             webView.webChromeClient =
                 WebChromeClient()
 
-            val layout =
-                LinearLayout(this)
-
-            layout.orientation =
-                LinearLayout.VERTICAL
-
-            layout.addView(
+            root.addView(
                 webView,
                 LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
+                    0,
+                    1f
                 )
             )
 
-            setContentView(layout)
+            setContentView(root)
 
             webView.loadUrl(url)
         }
@@ -149,8 +164,6 @@ class OSCustomInAppBrowser : CordovaPlugin() {
         override fun onDestroy() {
 
             webView.destroy()
-
-            browserActivity = null
 
             super.onDestroy()
         }

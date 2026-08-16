@@ -1,30 +1,38 @@
-<platform name="android">
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <config-file
-        parent="/*"
-        target="res/xml/config.xml">
+<plugin
+    id="cordova-christian-custom-inappbrowser"
+    version="1.0.0"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
-        <feature name="OSCustomInAppBrowser">
+    <platform name="android">
 
-            <param
-                name="android-package"
-                value="com.outsystems.plugins.custominappbrowser.OSCustomInAppBrowser" />
+        <config-file
+            parent="/*"
+            target="res/xml/config.xml">
 
-        </feature>
+            <feature name="OSCustomInAppBrowser">
 
-        <preference
-            name="GradlePluginKotlinEnabled"
-            value="true" />
+                <param
+                    name="android-package"
+                    value="com.outsystems.plugins.custominappbrowser.OSCustomInAppBrowser" />
 
-        <preference
-            name="GradlePluginKotlinCodeStyle"
-            value="official" />
+            </feature>
 
-    </config-file>
+            <preference
+                name="GradlePluginKotlinEnabled"
+                value="true" />
 
+            <preference
+                name="GradlePluginKotlinCodeStyle"
+                value="official" />
 
-    <source-file
-        src="src/android/OSCustomInAppBrowser.kt"
-        target-dir="app/src/main/kotlin/com/outsystems/plugins/custominappbrowser" />
+        </config-file>
 
-</platform>
+        <source-file
+            src="src/android/OSCustomInAppBrowser.kt"
+            target-dir="app/src/main/kotlin/com/outsystems/plugins/custominappbrowser" />
+
+    </platform>
+
+</plugin>

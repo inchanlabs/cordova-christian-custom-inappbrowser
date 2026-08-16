@@ -12,23 +12,17 @@ class OSCustomInAppBrowser : CordovaPlugin() {
         callbackContext: CallbackContext
     ): Boolean {
 
-        when (action) {
+        if (action == "isAvailable") {
 
-            "isAvailable" -> {
+            callbackContext.success(1)
 
-                callbackContext.success(1)
-
-                return true
-            }
-
-            else -> {
-
-                callbackContext.error(
-                    "Unknown action: $action"
-                )
-
-                return false
-            }
+            return true
         }
+
+        callbackContext.error(
+            "Unknown action: $action"
+        )
+
+        return false
     }
 }

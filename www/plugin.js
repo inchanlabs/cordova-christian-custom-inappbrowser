@@ -12,6 +12,18 @@ var CustomInAppBrowser = {
             []
         );
 
+    },
+
+    open: function (url, success, error) {
+
+        exec(
+            success,
+            error,
+            "OSCustomInAppBrowser",
+            "open",
+            [url]
+        );
+
     }
 
 };

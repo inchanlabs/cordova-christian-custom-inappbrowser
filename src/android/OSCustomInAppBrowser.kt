@@ -83,8 +83,13 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
             super.onCreate(savedInstanceState)
 
-            // Hide the Android action bar
+            // Hide the Android action bar.
             actionBar?.hide()
+
+            // Keep the phone's status bar visible.
+            window.clearFlags(
+                android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
 
             val url =
                 intent.getStringExtra("url") ?: ""

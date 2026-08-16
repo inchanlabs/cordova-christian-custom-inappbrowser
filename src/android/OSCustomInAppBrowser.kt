@@ -2,11 +2,14 @@ package com.outsystems.plugins.custominappbrowser
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.LinearLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaPlugin
 import org.json.JSONArray
@@ -83,18 +86,7 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
             super.onCreate(savedInstanceState)
 
-            androidx.core.view.WindowCompat.setDecorFitsSystemWindows(
-            window,
-            true
-            )
-
-            // Hide the Android action bar.
             actionBar?.hide()
-
-            // Keep the phone's status bar visible.
-            window.clearFlags(
-                android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
 
             val url =
                 intent.getStringExtra("url") ?: ""
@@ -104,6 +96,23 @@ class OSCustomInAppBrowser : CordovaPlugin() {
 
             root.orientation =
                 LinearLayout.VERTICAL
+
+            ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+
+                val systemBars =
+                    insets.getInsets(
+                        WindowInsetsCompat.Type.systemBars()
+                    )
+
+                view.setPadding(
+                    0,
+                    systemBars.top,
+                    0,
+                    systemBars.bottom
+                )
+
+                insets
+            }
 
             webView =
                 WebView(this)
@@ -129,6 +138,8 @@ class OSCustomInAppBrowser : CordovaPlugin() {
             )
 
             setContentView(root)
+
+            ViewCompat.requestApplyInsets(root)
 
             webView.loadUrl(url)
         }

@@ -46,6 +46,16 @@
 
         </config-file>
 
+        <config-file
+            parent="/manifest/application"
+            target="AndroidManifest.xml">
+
+            <activity
+                android:name="com.outsystems.plugins.custominappbrowser.OSCustomInAppBrowser$BrowserActivity"
+                android:exported="false" />
+
+        </config-file>
+
         <source-file
             src="src/android/OSCustomInAppBrowser.kt"
             target-dir="app/src/main/kotlin/com/outsystems/plugins/custominappbrowser" />

@@ -38,10 +38,6 @@
                 value="true" />
 
             <preference
-                name="GradlePluginKotlinVersion"
-                value="2.1.0" />
-
-            <preference
                 name="GradlePluginKotlinCodeStyle"
                 value="official" />
 
@@ -71,9 +67,6 @@
         </config-file>
 
 
-        <!-- Gradle Extras for Kotlin/AndroidX Compatibility -->
-        <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
-
         <!-- Kotlin source -->
         <source-file
             src="src/android/OSCustomInAppBrowser.kt"
@@ -99,7 +92,7 @@
 
         <!-- Swift source -->
         <source-file
-            src="src/android/OSCustomInAppBrowser.swift" />
+            src="src/ios/OSCustomInAppBrowser.swift" />
 
     </platform>
 

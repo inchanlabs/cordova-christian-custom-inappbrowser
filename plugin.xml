@@ -79,21 +79,22 @@
     <!-- iOS                       -->
     <!-- ========================= -->
 
-    <platform name="ios">
+   <platform name="ios">
+        <!-- 1. Properly inject feature into config.xml -->
+        <config-file target="config.xml" parent="/*">
+            <feature name="OSCustomInAppBrowser">
+                <param name="ios-package" value="OSCustomInAppBrowser" />
+            </feature>
+        </config-file>
 
-        <feature name="OSCustomInAppBrowser">
+        <!-- 2. Enable Swift compilation for iOS builds -->
+        <preference name="UseSwiftLanguageVersion" value="5" />
 
-            <param
-                name="ios-package"
-                value="OSCustomInAppBrowser" />
+        <!-- 3. Reference your Swift source file -->
+        <source-file src="src/ios/OSCustomInAppBrowser.swift" />
 
-        </feature>
-
-
-        <!-- Swift source -->
-        <source-file
-            src="src/ios/OSCustomInAppBrowser.swift" />
-
+        <!-- 4. Required iOS Frameworks -->
+        <framework src="WebKit.framework" />
     </platform>
 
 </plugin>
